@@ -1,81 +1,102 @@
-# RAK3112_RFID_RS485_Schematic_
+# ETS LoRa RFID & RS485 System
 
-## 📌 Overview
-This project is a **custom embedded hardware design** based on the **RAK3112 (LoRa + ESP32-S3 module)** integrating multiple communication interfaces and peripherals.
+A compact embedded system based on **RAK3112 (ESP32-S3 + LoRa)** combining:
 
-It is designed for **industrial / IoT applications** requiring:
-- RS485 communication
-- RFID interfacing
-- Display output
+- RFID scanning
+- RS485 / RS232 communication
+- TFT display UI
+- Industrial I/O control
+
+---
+
+## 📌 Project Overview
+
+This project integrates:
+
+- Dual-frequency RFID (125kHz + 13.56MHz)
+- RS485 & RS232 communication interfaces
+- 2.8" TFT display with touch
 - User interaction (buttons, buzzer, RGB LED)
+
+Designed for **IoT & industrial applications**.
+
+---
+
+## 🧰 Hardware
+
+- **MCU:** RAK3112 (ESP32-S3 + LoRa)
+- **Display:** ILI9341 2.8" TFT (FT6336 Touch)
+- **RFID:** UART-based dual-frequency module
+- **RS485:** TP8485E
+- **RS232:** MAX3232
+- **Power:** RT6160A Buck-Boost
 
 ---
 
 ## ⚙️ Features
-- ✅ RAK3112 (ESP32-S3 + LoRa)
-- ✅ RS485 Communication (TP8485E)
-- ✅ RS232 Interface (MAX3232)
-- ✅ RFID Module Interface
-- ✅ 2.8" SPI LCD (ILI9341)
-- ✅ WS2812 NeoPixel LED
-- ✅ Buzzer Output (Transistor driven)
-- ✅ Multiple Push Buttons
-- ✅ Dual Power Input:
-  - USB-C (5V)
-  - DC Jack (5V)
+
+- RFID UID display (HEX + Decimal)
+- RS485 communication support
+- RS232 interface
+- Capacitive touch UI
+- NeoPixel RGB LED
+- Buzzer + Buttons
+- Dual power input (USB-C + DC)
 
 ---
 
-## 🔌 Power Architecture
-- Input: **5V (USB-C or DC Jack)**
-- Regulator: **RT6160A Buck-Boost Converter**
+## 🔌 Pin Configuration (RFID + Display)
+
+| Signal | GPIO |
+|------|------|
+| LCD_CS | 12 |
+| LCD_RST | 39 |
+| LCD_DC | 38 |
+| MOSI | 11 |
+| SCK | 13 |
+| MISO | 10 |
+| Backlight | 42 |
+
+RFID:
+- TX → GPIO 18
+
+---
+
+## 🔋 Power Architecture
+
+- Input: 5V (USB-C / DC)
 - Output:
-  - 3.3V for MCU and logic
-  - 5V rail for peripherals (NeoPixel, RFID, etc.)
+  - 3.3V (logic)
+  - 5V (peripherals)
 
 ---
 
-## 🔗 Communication Interfaces
+## 📂 Files
 
-### RS485
-- Transceiver: **TP8485E**
-- Direction Control: GPIO-controlled (DE/RE)
-- Protection & filtering included
-
-### RS232
-- IC: **MAX3232**
-- Full UART level shifting support
-
-### UART
-- Used for:
-  - RS485
-  - RS232
-  - External modules
+- `/Firmware` → ESP32 code
+- `/Schematic` → PCB & circuit design
+- `/Docs` → documentation
 
 ---
 
-## 🧩 Peripherals
+## 🛠️ Build & Flash
 
-### 📟 Display
-- 2.8" SPI TFT (ILI9341)
-- SPI Interface (MOSI, MISO, SCK, CS, DC, RST)
+### PlatformIO
+```bash
+pio run
+pio run --target upload
+pio device monitor
+```
 
-### 🎫 RFID
-- External module via connector
-- Powered from 5V
-
-### 🔘 Buttons
-- 3x User input buttons
-- Connected to GPIOs with pull configuration
-
-### 🔊 Buzzer
-- Driven via **BC547 transistor**
-- Controlled by GPIO
-
-### 🌈 RGB LED
-- WS2812 (NeoPixel)
-- Single-wire data control
+### Arduino IDE
+- Select ESP32S3 Dev Module
+- Configure TFT_eSPI
+- Upload
 
 ---
 
-## 📂 Project Structure
+## 🚀 Applications
+
+- Industrial RFID systems
+- Access control
+- IoT node with RS485 network

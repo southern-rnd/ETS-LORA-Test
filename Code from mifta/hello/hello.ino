@@ -1,0 +1,17 @@
+#include <TFT_eSPI.h>
+
+TFT_eSPI tft = TFT_eSPI();
+
+void setup() {
+  tft.init();
+  tft.setRotation(1);
+
+  tft.fillScreen(TFT_BLACK);
+
+  tft.setTextColor(TFT_WHITE);
+  tft.setTextSize(3);
+
+  tft.drawString("Hello Everyone", 20, 40, 2);
+}
+
+void loop() {}
