@@ -1,37 +1,21 @@
-# 📡 RAK3112 LoRaWAN RFID Scanner
+# 📡 LoRaWAN RFID Scanner
 
-An ESP32-S3-based RFID card scanner built on the **RAK3112 module**, transmitting tag UIDs over LoRaWAN (ChirpStack) and displaying scan results on a TFT screen in real time. The hardware integrates RS485, RS232, NeoPixel, buzzer, and multiple user input peripherals for industrial / IoT applications.
+An ESP32-based RFID card scanner that transmits tag UIDs over LoRaWAN (ChirpStack) and displays scan results on a TFT screen in real time.
 
 ---
 
-## 🧰 Hardware Overview
+## 🧰 Hardware Requirements
 
 | Component | Details |
 |---|---|
-| Microcontroller | RAK3112 (ESP32-S3 + LoRa) |
+| Microcontroller | ESP32 (RAK3212 or compatible) |
 | LoRa Radio | SX1262 |
 | RFID Reader | UART-based (125 kHz / compatible) |
-| Display | 2.8" SPI TFT (ILI9341, via `TFT_eSPI`) |
-| RS485 Transceiver | TP8485E |
-| RS232 IC | MAX3232 |
-| RGB LED | WS2812 NeoPixel |
-| Buzzer | BC547 transistor-driven |
-| User Buttons | 3× GPIO push buttons |
+| Display | TFT screen (via `TFT_eSPI`) |
 
 ---
 
-## ⚡ Power Architecture
-
-| Parameter | Details |
-|---|---|
-| Input | 5V via USB-C or DC Jack |
-| Regulator | RT6160A Buck-Boost Converter |
-| 3.3V Rail | MCU and logic |
-| 5V Rail | NeoPixel, RFID module, peripherals |
-
----
-
-## 📦 Software Dependencies
+## 📦 Dependencies
 
 Install the following libraries via the Arduino Library Manager or PlatformIO:
 
@@ -63,33 +47,7 @@ Install the following libraries via the Arduino Library Manager or PlatformIO:
 | TX | 17 |
 | Baud Rate | 115200 |
 
-### Display (2.8" SPI TFT — ILI9341)
-
-| Signal | Notes |
-|---|---|
-| Interface | SPI (MOSI, MISO, SCK, CS, DC, RST) |
-| Backlight | GPIO 42 — set HIGH to enable |
-
-### RS485 (TP8485E)
-
-| Detail | Notes |
-|---|---|
-| Direction Control | GPIO-controlled DE/RE |
-| Protection | Filtering and transient protection included |
-
-### RS232 (MAX3232)
-
-| Detail | Notes |
-|---|---|
-| Interface | Full UART level shifting |
-
-### Other Peripherals
-
-| Peripheral | Interface |
-|---|---|
-| WS2812 NeoPixel | Single-wire data (GPIO) |
-| Buzzer | BC547 transistor, GPIO-controlled |
-| Push Buttons (×3) | GPIO with pull configuration |
+> **Note:** The TFT backlight is controlled via GPIO 42 (set HIGH to enable).
 
 ---
 
@@ -145,7 +103,7 @@ The TFT display cycles between two views:
 | TX Power | TX_POWER_5 |
 | Duty Cycle | OFF |
 | Debounce Time | 1500 ms |
-| Card Display Duration | 4000 ms |
+| Card display duration | 4000 ms |
 
 ---
 
